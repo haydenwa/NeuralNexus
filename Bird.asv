@@ -1,24 +1,20 @@
-for K = 1:20
-    %% PI controller gains
-    tauC = 60/1000; % ms, controller time constant from Fig5 as above
-    Kp = K * tauC;
-    Ki = K;
-    
-    
+clear all; close all;
+% Setting Parameters
+K = 1
+A = 1
+B = 1
+C = 1
+D = 0
 
-    %% P(s) parameters
-    I = 2119; % moment of inertia for magnificent hummingbird pitch
-    tauP = 69.7/1000; % I/b, the open-loop time constant in ms
+% Define Other Parameters
+simTime = 3; % seconds
+deltaT = 10%/1000; % ms, sensory time delay, from Fig 5 in Cheng paper, chosen somewhat arbitrarily from allowable
 
-    %% Other Parameters
-    simTime = 3 %seconds
-    deltaT = 20/1000; % ms, sensory time delay, from Fig 5 in Cheng paper, chosen somewhat arbitrarily from allowable
+% Run simulation
+sim("BirdModel.slx");
 
-    sim("BirdModel.slx");
-    plot(ans.tout, ans.yout);
-    title(['Response for K = ', num2str(K)]);
-    xlabel('Time');
-    ylabel('Output');
-    saveas(gcf, ['Response_for_K_', num2str(K), '.png']);
-end
-    
+% Extract simulation results
+thetaR = ans.yout(:, 1);
+time = ans.tout;
+
+
