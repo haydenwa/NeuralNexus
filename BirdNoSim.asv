@@ -1,0 +1,52 @@
+clear all; close all;
+% Setting Parameters
+
+
+% Define Other Parameters
+simTime = 3; % seconds
+deltaT = 10%/1000; % ms, sensory time delay, from Fig 5 in Cheng paper, chosen somewhat arbitrarily from allowable
+
+% Define P(s) parameters
+I = 2119; % moment of inertia for magnificent hummingbird pitch
+tauP = 69.7/1000; % I/b, the open-loop time constant in ms
+tauC = 40/1000; % ms, controller time constant from Fig5 as above
+Ki = 1;
+Kp = 1 * tauC;
+K = [Ki; Kp];
+
+% Define state-space model
+A = [0, 1; 0, 1/(I*tauP)];
+B = [0; 1/I];
+C = [1, 0; 0, 1];
+D = [0; 0];
+
+% Define time vector
+t = 0:0.01:10; % Simulation time from 0 to 10 seconds with a step of 0.01
+
+% Define initial state
+x0 = [0; 0]; % Initial state [theta; theta_dot]
+
+% Define reference input
+r = 1; % Constant reference input
+
+% Simulate the system with feedback control
+sys = ss(A, B, C, D);
+sys_with_feedback = feedback(sys, K(2), K(1), 1);
+
+[y, t, x] = lsim(sys_with_feedback, r * ones(size(t)), t, x0);
+
+% Plot the response
+subplot(2,1,1);
+plot(t, y(:,1));
+title('Pitch Angle (\theta) Response');
+xlabel('Time (s)');
+ylabel('Pitch Angle (\theta)');
+grid on;
+
+subplot(2,1,2);
+plot(t, y(:,2));
+title('Pitch Angular Velocity (\theta_{dot}) Response');
+xlabel('Time (s)');
+ylabel('Pitch Angular Velocity (\theta_{dot})');
+grid on;
+
