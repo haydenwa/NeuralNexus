@@ -57,10 +57,10 @@ Daug = [zeros(ny, ny+nu+ny);
 Tcl = ss(Aaug, Baug, Caug, Daug);
 
 % Specify simulation time
-Ts = 1e-3; % ms
-Tf = 1000;
-tspan = 0:Ts:Tf; % ms
-Nt = length(tspan);
+Ts = 1e-3; % Simulation sample time, ms
+Tf = 1000; % Simulation end time, ms
+tspan = 0:Ts:Tf; % List of sample times, ms 
+Nt = length(tspan); % Number of samples
 
 % Define reference command
 r = [0.1*ones(Nt, 1), zeros(Nt, 1)];
