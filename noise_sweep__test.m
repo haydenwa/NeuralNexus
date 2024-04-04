@@ -31,7 +31,7 @@ plot(sigma_n_range, JT_LQR, 'b', 'LineWidth', 1.5);
 hold off
 grid on
 xlabel('Noise $$\Sigma_n$$', 'Interpreter', 'latex', 'FontSize', 20);
-ylabel('Total Cost $$J(T)$$', 'Interpreter', 'latex', 'FontSize', 15);
+ylabel('Total Cost $$J(T)$$', 'Interpreter', 'latex', 'FontSize', 20);
 xlim([sigma_nlb, sigma_nub]);
 legend('PD', 'LQR');
 title('Hovering Cost');
