@@ -3,7 +3,7 @@ clear, clc, close all
 rng(0);
 
 %% Perform Parameter Sweep
-Niter = 100; % Number of iterations, increase this for smoother plots
+Niter = 1000; % Number of iterations, increase this for smoother plots
 Ilb = 290; % Moment of inertia lower bound
 Iub = 5000; % Moment of inertia upper bound
 I_range = linspace(Ilb, Iub, Niter); % Moment of inertia range
